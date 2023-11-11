@@ -3,13 +3,7 @@ import Sidebar from '@/components/shared/Sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import '../globals.css';
-
-export const inter = Inter({
-	subsets: ['latin'],
-	variable: '--font-sans',
-});
 
 export const metadata: Metadata = {
 	title: 'Todo app by Israk',
@@ -23,12 +17,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang='en'>
-			<body
-				className={cn(
-					'min-h-screen bg-background font-sans antialiased',
-					inter.variable
-				)}
-			>
+			<body className={cn('min-h-screen bg-background font-sans antialiased')}>
 				<ThemeProvider
 					attribute='class'
 					defaultTheme='dark'
