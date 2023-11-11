@@ -3,10 +3,10 @@ import Sidebar from '@/components/shared/Sidebar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
-import { Inter as FontSans } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import '../globals.css';
 
-export const fontSans = FontSans({
+export const inter = Inter({
 	subsets: ['latin'],
 	variable: '--font-sans',
 });
@@ -26,7 +26,7 @@ export default function RootLayout({
 			<body
 				className={cn(
 					'min-h-screen bg-background font-sans antialiased',
-					fontSans.variable
+					inter.variable
 				)}
 			>
 				<ThemeProvider
@@ -36,7 +36,6 @@ export default function RootLayout({
 					disableTransitionOnChange
 				>
 					<>
-						{/* TODO: Navbar */}
 						<Navbar />
 						<main>
 							<Sidebar />
