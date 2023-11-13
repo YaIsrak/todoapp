@@ -8,7 +8,7 @@ export async function fetchUsers(userEmail: string) {
 	console.log('useremail', userEmail);
 	try {
 		connectToMongoDB();
-		return await Author.findOne({ email: userEmail });
+		return await Author.findOne({ email: userEmail }, {timeout: 3000});
 	} catch (error: any) {
 		throw new Error(`Failed to fetch ${error.message}`);
 	}
@@ -17,7 +17,7 @@ export async function fetchUsers(userEmail: string) {
 export async function fetchUserTodos(userEmail: string) {
 	try {
 		connectToMongoDB();
-		const todos = await Author.findOne({ email: userEmail }).populate({
+		const todos = await Author.findOne({ email: userEmail }, {timeout: 3000}).populate({
 			path: 'todos',
 			model: Todo,
 		});
