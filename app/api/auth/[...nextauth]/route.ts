@@ -1,9 +1,10 @@
-import User from '@/lib/models/user.model';
+import Author from '@/lib/models/user.model';
 import { connectToMongoDB } from '@/lib/mongoose';
+import { NextAuthOptions } from 'next-auth';
 import NextAuth from 'next-auth/next';
 import GoogleProvider from 'next-auth/providers/google';
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
 	providers: [
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID || '',
@@ -18,12 +19,16 @@ const handler = NextAuth({
 				try {
 					connectToMongoDB();
 
-					await User.create({
-						id,
-						name,
-						email,
-						image,
-					});
+					await Author.findOneAndUpdate(
+						{ id: id },
+						{
+							id,
+							name,
+							email,
+							image,
+						},
+						{ upsert: true }
+					);
 				} catch (error) {
 					console.log(error);
 				}
@@ -32,6 +37,8 @@ const handler = NextAuth({
 			return user;
 		},
 	},
-});
+};
+
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };

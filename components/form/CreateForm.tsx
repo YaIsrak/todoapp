@@ -3,6 +3,7 @@ import { CreateTodo } from '@/lib/actions/todo.action';
 import { fetchUsers } from '@/lib/actions/user.action';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '../ui/button';
@@ -23,6 +24,7 @@ const formSchema = z.object({
 });
 
 export default function CreateForm() {
+	const route = useRouter();
 	const { data, status } = useSession();
 	const user: any = data?.user;
 	const { toast } = useToast();
@@ -56,6 +58,7 @@ export default function CreateForm() {
 						description: 'There was a problem with your request.',
 					});
 				});
+			route.refresh();
 		}
 	};
 
